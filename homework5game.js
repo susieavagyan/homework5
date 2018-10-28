@@ -64,14 +64,14 @@ ghostimg.src="https://www.pyd.org/wp-content/uploads/2014/10/Halloween_Ghost_wit
       context.drawImage(this.image,this.x,this.y,this.width,this.height)
     },
     update: function() {
-    	if (this.x===0 ){
-    		this.xDelta=0
-    		this.xDelta=1
+    	if (this.x<=0 ){
+    		this.xDelta=0;
+    		this.xDelta=1;
     	} else if (this.x>=canvas.width-this.width) {
     	   context.clearRect (0,0, canvas.width,canvas.height)
          context.drawImage(this.winner,0,0,canvas.width,canvas.height)
     	}
-    	if (this.y===0 ){
+    	if (this.y<=0 ){
     		this.yDelta=0
     		this.yDelta=1
     	} else if (this.y>=canvas.height-this.height) {
@@ -79,7 +79,7 @@ ghostimg.src="https://www.pyd.org/wp-content/uploads/2014/10/Halloween_Ghost_wit
     		this.yDelta=-1
     	}
       	this.x=this.xDelta+this.x;
-		    this.y=this.yDelta+this.y;
+		this.y=this.yDelta+this.y;
     }
   }
   
@@ -89,22 +89,22 @@ const rightKey = 39;
 const downKey = 40;
 document.addEventListener('keydown', function(event) {
 	if(event.keyCode === rightKey) {
-    ghost.xDelta = 1;
+    ghost.xDelta = 3;
     }
       }, false);
 document.addEventListener('keydown', function(event) {
 	if(event.keyCode === leftKey) {
-    ghost.xDelta = -1;
+    ghost.xDelta = -3;
     }
       }, false);
 document.addEventListener('keydown', function(event) {
 	if(event.keyCode === upKey) {
-    ghost.yDelta = -1;
+    ghost.yDelta = -3;
     }
       }, false);
 document.addEventListener('keydown', function(event) {
 	if(event.keyCode === downKey) {
-    ghost.yDelta = 1;
+    ghost.yDelta = 3;
     }
       }, false);
  document.addEventListener('keyup', function(event) {
@@ -115,7 +115,7 @@ document.addEventListener('keydown', function(event) {
 const draw=function () {
      context.drawImage(background,0,0,canvas.width,canvas.height)
      ghost.draw();
-     //ghost.collision();
+    
      for(let i=0; i<batarray.length; i++) {
 	batarray[i].draw();
 	}
@@ -139,20 +139,30 @@ const draw=function () {
 //  	}
 //  }
 
-// const collision= function (){
-// 	for (let i=0; i<batarray.length; i++) {
+const collision= function (){
+	for (let i=0; i<batarray.length; i++) {
 
-// 		if (ghost.x+ghost.width/2  batarray[i].x+batarray[i].width/2) && ghost.yx+ghost.height/2 === )
-// 	}
-// }
+	
+			if(Math.abs((ghost.x+ghost.width/2)-(batarray[i].x+batarray[i].width/2))<= (ghost.width+batarray[i].width)/2 && Math.abs((ghost.y+ghost.height/2)-(batarray[i].y+batarray[i].height/2))<= (ghost.height+batarray[i].height)/2)
+			 {
+			alert ("GAME OVER");
+			ghost.x=300;
+			ghost.y=300;
+			ghost.xDelta = 0;
+			ghost.yDelta = 0;
+         	createBats (10, canvas.width, canvas.height)
+
+		}
+	}
+}
 
  
 
  const loop=function() {
    
-    draw();
+	draw();
+	collision(); 
     update(); 
-    collision(); 
  	requestAnimationFrame (loop)
  }
  loop();
