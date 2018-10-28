@@ -127,18 +127,6 @@ const draw=function () {
 	}
  }
 
-//  const collision=function() {
-//  	for (let i=0; i<batarray.length; i++) {
-//  		if (ghost.x>= batarray[i].x+batarray[i].width || ghost.x+ghost.width===batarray[i].x){
-//  				// alert("GAME OVER")
-//  		}
-//     if (ghost.y>= batarray[i].y+batarray[i].height || ghost.y+ghost.height===batarray[i].y){
-
-//         // alert("GAME OVER")
-//     }
-//  	}
-//  }
-
 const collision= function (){
 	for (let i=0; i<batarray.length; i++) {
 
